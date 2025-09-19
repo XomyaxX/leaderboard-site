@@ -1,8 +1,8 @@
 const sheetUrls = [
   // 1-й слайд: таблица
-  'https://docs.google.com/spreadsheets/d/e/2PACX-1vSm9UDeOeEQ61iJvCgB0jtnOcYoinpOdpN6AdL0rHLn22lpo0_JylOaDamiphnvQQbiraj9BKZEFx8d/pub?output=csv',
+  'вставте ссылку формата CSV',
   // 2-й слайд: лидер дня
-  'https://docs.google.com/spreadsheets/d/e/2PACX-1vSm9UDeOeEQ61iJvCgB0jtnOcYoinpOdpN6AdL0rHLn22lpo0_JylOaDamiphnvQQbiraj9BKZEFx8d/pub?gid=644491547&single=true&output=csv'
+  'вставте ссылку формата CSV'
 ];
 
 let currentIndex = 0;
