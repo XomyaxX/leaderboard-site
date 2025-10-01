@@ -1,71 +1,47 @@
 const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSm9UDeOeEQ61iJvCgB0jtnOcYoinpOdpN6AdL0rHLn22lpo0_JylOaDamiphnvQQbiraj9BKZEFx8d/pub?output=csv";
 
-
-let currentIndex = 0;
-let slides = [];
-
-async function loadAllSheets() {
-  const container = document.getElementById('slider-content');
-  container.innerHTML = '';
-  slides = [];
-
-  for (let i = 0; i < sheetUrls.length; i++) {
-    const data = await loadCSV(sheetUrls[i]);
-    let content;
-
-    if (i === 0) {
-      content = renderTable(data);
-    } else {
-      content = renderLeaderCard(data);
-    }
-
-    const slide = document.createElement('div');
-    slide.classList.add('slide');
-    slide.appendChild(content);
-
-    container.appendChild(slide);
-    slides.push(slide);
-  }
-
-  if (slides.length > 0) {
-    showSlide(0);
-  }
-}
-
-async function loadCSV(url) {
+async function loadData() {
   try {
-    const res = await fetch(url + '&t=' + Date.now());
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const text = await res.text();
-    const rows = text.trim().split(/\r?\n/);
-    return rows.map(r => r.split(/,|;|\t/));
-  } catch (e) {
-    console.error(e);
-    return [['Ошибка загрузки']];
+    const response = await fetch(SHEET_URL);
+    const csvText = await response.text();
+    const rows = csvText.trim().split("\n").map(r => r.split(","));
+    
+    const tbody = document.querySelector("#leaderboard tbody");
+    tbody.innerHTML = ""; // очистка перед обновлением
+
+    // пропускаем заголовок (с первой строки)
+    rows.slice(1).forEach(row => {
+      const tr = document.createElement("tr");
+      row.forEach(cell => {
+        const td = document.createElement("td");
+        td.textContent = cell;
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+  } catch (err) {
+    console.error("Ошибка загрузки данных:", err);
   }
 }
 
-function renderTable(data) {
-  const tbl = document.createElement('table');
-  data.forEach((row, i) => {
-    const tr = document.createElement('tr');
-    row.forEach(cell => {
-      const el = document.createElement(i === 0 ? 'th' : 'td');
-      el.textContent = cell;
-      tr.appendChild(el);
-    });
-    tbl.appendChild(tr);
-  });
-  return tbl;
+// первая загрузка
+loadData();
+// автообновление каждые 60 секунд
+setInterval(loadData, 60000);
+
+// ===== Анимация иконок =====
+const icons = ["🛠️", "💻", "🧺", "📺", "🔧", "🔨", "🪛", "⚡"];
+const background = document.querySelector(".background");
+
+function spawnIcon() {
+  const icon = document.createElement("div");
+  icon.className = "floating-icon";
+  icon.textContent = icons[Math.floor(Math.random() * icons.length)];
+  icon.style.left = Math.random() * 100 + "vw";
+  icon.style.animationDuration = (5 + Math.random() * 10) + "s";
+  background.appendChild(icon);
+
+  setTimeout(() => icon.remove(), 15000);
 }
 
-function showSlide(index) {
-  slides.forEach((slide, i) => {
-    slide.classList.remove('active');
-    if (i === index) {
-      slide.classList.add('active');
-    }
-  });
-  currentIndex = index;
-}
-loadAllSheets();
+setInterval(spawnIcon, 1000);

@@ -1,37 +1,31 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>О космосе</title>
+  <meta charset="UTF-8">
+  <title>Лидеры среди ремонтников</title>
   <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="icon" href="assets/images/1492719126-planet_83622.png" type="image/png">
 </head>
 <body>
-  <div id="stars-container"></div>
-  <div class="circle decoration"></div>
-  <div class="circle-2 decoration"></div>
-  <div class="square decoration"></div>
-  <div class="container">
-    <div class="title">
-      <h1>Это таблица на тему космоса.</h1>
-    </div>
-    <div class="image-blocks">
-      <div class="image-block">
-        <img src="assets/images/kosmos-planety-sputnik-zvezda-48.png" alt="Excel Icon">
-      </div>
-      <div class="image-block">
-        <img src="assets/images/large-panoramic-view-colorful-da.png" alt="Data Visualization">
-    
-      </div>
-      <div class="image-block">
-        <img src="assets/images/maxresdefault.png" alt="Charts">
-      </div>
-    </div>
-  <div class="slider">
-    <div id="slider-content"></div>
+  <div class="background">
+    <!-- сюда будут добавляться парящие иконки -->
   </div>
-  <script src="assets/js/stars.js"></script>
+
+  <div class="container">
+    <h1>Лидеры среди ремонтников</h1>
+    <table id="leaderboard">
+      <thead>
+        <tr>
+          <th>ФИО</th>
+          <th>Средний чек</th>
+          <th>Касса</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- строки добавятся из JS -->
+      </tbody>
+    </table>
+  </div>
+
   <script src="assets/js/script.js"></script>
 </body>
 </html>
