@@ -1,7 +1,5 @@
-const sheetUrls = [
-'https://docs.google.com/spreadsheets/d/e/2PACX-1vRGUWr5iRvr0yz29E4S6fpOjGDHCosPOacInt4wmoGYZt_TV0XK5vjUNVx8YUykM29XXZ6S7CJhgsi9/pub?gid=247543241&single=true&output=tsv'
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSm9UDeOeEQ61iJvCgB0jtnOcYoinpOdpN6AdL0rHLn22lpo0_JylOaDamiphnvQQbiraj9BKZEFx8d/pub?output=csv";
 
-];
 
 let currentIndex = 0;
 let slides = [];
