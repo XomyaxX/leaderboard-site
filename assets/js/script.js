@@ -53,3 +53,25 @@ function spawnIcon() {
 
 // Частота появления: каждые 500мс (в 2 раза чаще чем раньше)
 setInterval(spawnIcon, 500);
+// Автопрокрутка таблицы
+function autoScroll() {
+  const container = document.querySelector(".container");
+  let scrollStep = 1; // скорость (пиксели за шаг)
+  let delay = 50; // задержка между шагами (мс)
+
+  setInterval(() => {
+    if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
+      // если дошли до конца — возвращаемся в начало
+      container.scrollTop = 0;
+    } else {
+      container.scrollTop += scrollStep;
+    }
+  }, delay);
+}
+
+// Запуск автоскролла после загрузки данных
+window.onload = () => {
+  loadData();
+  setInterval(loadData, 60000); // обновление данных
+  autoScroll();
+};

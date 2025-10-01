@@ -12,10 +12,13 @@ body {
   z-index: 2;
   padding: 20px;
   text-align: center;
-  overflow-y: auto;
-  max-height: 100vh;
+  height: 100vh;          /* занимает весь экран */
+  overflow-y: auto;       /* внутренний скролл */
+  scrollbar-width: none;  /* скрыть полосу прокрутки в Firefox */
 }
-
+.container::-webkit-scrollbar {
+  display: none;          /* скрыть полосу прокрутки в Chrome/Safari */
+}
 
 h1 {
   font-size: 3em;
@@ -70,3 +73,4 @@ tr:hover {
   from { transform: translateY(-50px) rotate(0deg); opacity: 0.9; }
   to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
 }
+
