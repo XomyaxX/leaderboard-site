@@ -12,13 +12,14 @@ body {
   z-index: 2;
   padding: 20px;
   text-align: center;
-  height: 100vh;          /* занимает весь экран */
+  height: 100vh;          /* вся высота экрана */
   overflow-y: auto;       /* внутренний скролл */
-  scrollbar-width: none;  /* скрыть полосу прокрутки в Firefox */
+  scrollbar-width: none;  /* скрыть полосу прокрутки */
 }
 .container::-webkit-scrollbar {
-  display: none;          /* скрыть полосу прокрутки в Chrome/Safari */
+  display: none;
 }
+
 
 h1 {
   font-size: 3em;
