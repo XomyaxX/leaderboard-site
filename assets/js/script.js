@@ -28,9 +28,16 @@ async function loadData() {
 loadData();
 // автообновление каждые 60 секунд
 setInterval(loadData, 60000);
-
 // ===== Анимация иконок =====
-const icons = ["🛠️", "💻", "🧺", "📺", "🔧", "🔨", "🪛", "⚡"];
+// Расширенный список (бытовая техника + инструменты)
+const icons = [
+  "🛠️","🔧","🔨","🪛","⚡","🔌","🪚","📐",
+  "🧺","🧹","🧼","🪣","🚿","🚰",
+  "💻","🖥️","📺","📱","⌨️","🖨️",
+  "🥶","🔥","🧊","📡","🔋","💡",
+  "🧯","🪑","🚪","🛋️","🪟"
+];
+
 const background = document.querySelector(".background");
 
 function spawnIcon() {
@@ -38,10 +45,11 @@ function spawnIcon() {
   icon.className = "floating-icon";
   icon.textContent = icons[Math.floor(Math.random() * icons.length)];
   icon.style.left = Math.random() * 100 + "vw";
-  icon.style.animationDuration = (5 + Math.random() * 10) + "s";
+  icon.style.animationDuration = (4 + Math.random() * 8) + "s"; // быстрее падение
   background.appendChild(icon);
 
-  setTimeout(() => icon.remove(), 15000);
+  setTimeout(() => icon.remove(), 12000);
 }
 
-setInterval(spawnIcon, 1000);
+// Частота появления: каждые 500мс (в 2 раза чаще чем раньше)
+setInterval(spawnIcon, 500);
