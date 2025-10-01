@@ -1,0 +1,73 @@
+const sheetUrls = [
+'https://docs.google.com/spreadsheets/d/e/2PACX-1vRGUWr5iRvr0yz29E4S6fpOjGDHCosPOacInt4wmoGYZt_TV0XK5vjUNVx8YUykM29XXZ6S7CJhgsi9/pub?gid=247543241&single=true&output=tsv'
+
+];
+
+let currentIndex = 0;
+let slides = [];
+
+async function loadAllSheets() {
+  const container = document.getElementById('slider-content');
+  container.innerHTML = '';
+  slides = [];
+
+  for (let i = 0; i < sheetUrls.length; i++) {
+    const data = await loadCSV(sheetUrls[i]);
+    let content;
+
+    if (i === 0) {
+      content = renderTable(data);
+    } else {
+      content = renderLeaderCard(data);
+    }
+
+    const slide = document.createElement('div');
+    slide.classList.add('slide');
+    slide.appendChild(content);
+
+    container.appendChild(slide);
+    slides.push(slide);
+  }
+
+  if (slides.length > 0) {
+    showSlide(0);
+  }
+}
+
+async function loadCSV(url) {
+  try {
+    const res = await fetch(url + '&t=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const text = await res.text();
+    const rows = text.trim().split(/\r?\n/);
+    return rows.map(r => r.split(/,|;|\t/));
+  } catch (e) {
+    console.error(e);
+    return [['Ошибка загрузки']];
+  }
+}
+
+function renderTable(data) {
+  const tbl = document.createElement('table');
+  data.forEach((row, i) => {
+    const tr = document.createElement('tr');
+    row.forEach(cell => {
+      const el = document.createElement(i === 0 ? 'th' : 'td');
+      el.textContent = cell;
+      tr.appendChild(el);
+    });
+    tbl.appendChild(tr);
+  });
+  return tbl;
+}
+
+function showSlide(index) {
+  slides.forEach((slide, i) => {
+    slide.classList.remove('active');
+    if (i === index) {
+      slide.classList.add('active');
+    }
+  });
+  currentIndex = index;
+}
+loadAllSheets();
